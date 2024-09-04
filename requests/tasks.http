@@ -1,0 +1,48 @@
+# Отримання всього списку завдань
+GET http://127.0.0.1:5000/tasks HTTP/1.1
+
+###
+
+# Створення одного завдання
+POST http://127.0.0.1:5000/tasks HTTP/1.1
+Content-Type: application/json
+
+{
+    "description": "Clean the room",
+    "deadline": "2024-09-07"
+}
+
+###
+
+# Отримання одного завдання
+# 200
+GET http://127.0.0.1:5000/tasks/6545 HTTP/1.1
+### 404
+GET http://127.0.0.1:5000/tasks/654 HTTP/1.1
+
+###
+
+# Oновлення одного завдання 
+# 200
+PATCH http://127.0.0.1:5000/tasks/6545 HTTP/1.1
+Content-Type: application/json
+
+{
+    "isDone": true
+}
+### 404
+PATCH http://127.0.0.1:5000/tasks/654 HTTP/1.1
+Content-Type: application/json
+
+{
+    "isDone": true
+}
+
+###
+
+# Видалення одного завдання 
+# 200
+DELETE http://127.0.0.1:5000/tasks/6545 HTTP/1.1
+
+### 404
+DELETE http://127.0.0.1:5000/tasks/654 HTTP/1.1
