@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const { task } = require('./../model');
 
 module.exports.createTask = (req, res) => {
@@ -14,19 +15,20 @@ module.exports.getTasks = (req, res) => {
   res.status(201).send(findTasks);
 };
 
-module.exports.getTaskById = (req, res) => {
+module.exports.getTaskById = (req, res, next) => {
   const { id } = req.params;
 
   const fountTask = task.getTaskById(id);
 
   if (!fountTask) {
-    return res.status(404).send('Task Not Found');
+    // return res.status(404).send('Task Not Found');
+    return next(createError(404, 'Task Not Found'));
   }
 
   res.status(200).send(fountTask);
 };
 
-module.exports.updateTaskById = (req, res) => {
+module.exports.updateTaskById = (req, res, next) => {
   const {
     body,
     params: { id },
@@ -35,19 +37,21 @@ module.exports.updateTaskById = (req, res) => {
   const updatedTask = task.updateTask(id, body);
 
   if (!updatedTask) {
-    return res.status(404).send('Task Not Found');
+    // return res.status(404).send('Task Not Found');
+    return next(createError(404, 'Task Not Found'));
   }
 
   res.status(200).send(updatedTask);
 };
 
-module.exports.deleteTaskById = (req, res) => {
+module.exports.deleteTaskById = (req, res, next) => {
   const { id } = req.params;
 
   const deletedTask = task.deleteTask(id);
 
   if (!deletedTask) {
-    return res.status(404).send('Task Not Found');
+    // return res.status(404).send('Task Not Found');
+    return next(createError(404, 'Task Not Found'));
   }
 
   res.status(204).send();

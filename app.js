@@ -1,6 +1,6 @@
 const express = require('express');
 const { tasksControllers } = require('./controllers');
-const { validate } = require('./middleware');
+const { validate, errorHandlers } = require('./middleware');
 
 const app = express();
 app.use(express.json());
@@ -14,5 +14,7 @@ app.patch(
   tasksControllers.updateTaskById
 );
 app.delete('/tasks/:id', tasksControllers.deleteTaskById);
+
+app.use(errorHandlers.validationErrorHandler, errorHandlers.errorHandler);
 
 module.exports = app;
