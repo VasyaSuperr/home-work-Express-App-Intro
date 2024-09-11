@@ -36,7 +36,7 @@ module.exports.createTask = (req, res) => {
 
   tasks.push({ ...body, id: uuidv4(), isDone: false });
 
-  res.status(201).send(tasks);
+  res.status(201).send(tasks[tasks.length - 1]);
 };
 
 module.exports.getTaskById = (req, res) => {
@@ -64,7 +64,7 @@ module.exports.updateTaskById = (req, res) => {
   }
 
   tasks[foundTaskIndex] = { ...tasks[foundTaskIndex], ...body };
-  res.status(200).send(tasks);
+  res.status(200).send(tasks[foundTaskIndex]);
 };
 
 module.exports.deleteTaskById = (req, res) => {
